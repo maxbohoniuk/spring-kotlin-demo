@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/posts")
-class PostController(val postService: PostService) {
+class PostController(private val postService: PostService) {
 
     @GetMapping
     fun getAllPosts(): List<PostDto> = postService.getAllPosts().map { PostDto.fromEntity(it) }
