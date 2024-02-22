@@ -3,6 +3,7 @@ package com.maxbohoniuk.springkotlindemo.users
 import com.maxbohoniuk.springkotlindemo.users.model.UserRequestDto
 import com.maxbohoniuk.springkotlindemo.users.model.UserResponseDto
 import com.maxbohoniuk.springkotlindemo.users.service.UserService
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -23,5 +24,5 @@ class UserController(private val userService: UserService) {
         return UserResponseDto(userService.getUserByUUID(uuid))
     }
     @PostMapping
-    fun createUser(@RequestBody user: UserRequestDto): UserResponseDto = UserResponseDto(userService.createUser(user.toEntity()))
+    fun createUser(@RequestBody @Valid user: UserRequestDto): UserResponseDto = UserResponseDto(userService.createUser(user.toEntity()))
 }
