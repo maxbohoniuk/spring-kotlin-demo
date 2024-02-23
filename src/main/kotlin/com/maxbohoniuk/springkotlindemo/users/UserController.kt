@@ -23,6 +23,8 @@ class UserController(private val userService: UserService) {
     fun getUser(@PathVariable(name = "uuid") uuid: UUID): UserResponseDto {
         return UserResponseDto(userService.getUserByUUID(uuid))
     }
+
     @PostMapping
-    fun createUser(@RequestBody @Valid user: UserRequestDto): UserResponseDto = UserResponseDto(userService.createUser(user.toEntity()))
+    fun createUser(@RequestBody @Valid user: UserRequestDto): UserResponseDto =
+        UserResponseDto(userService.createUser(user.toEntity()))
 }

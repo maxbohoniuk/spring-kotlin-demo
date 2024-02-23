@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.AuditorAware
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing
+import org.springframework.security.core.context.SecurityContextHolder
 import java.util.*
 
 @Configuration
@@ -11,5 +12,5 @@ import java.util.*
 class AuditingConfig {
 
     @Bean
-    fun auditorAware(): AuditorAware<String> = AuditorAware { Optional.of("user") }
+    fun auditorAware(): AuditorAware<String> = AuditorAware { Optional.of(SecurityContextHolder.getContext().authentication.name) }
 }
