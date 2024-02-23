@@ -3,6 +3,7 @@ package com.maxbohoniuk.springkotlindemo.users.service
 import com.maxbohoniuk.springkotlindemo.users.model.User
 import com.maxbohoniuk.springkotlindemo.users.repo.UserReposiroty
 import org.springframework.http.HttpStatusCode
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -29,6 +30,12 @@ class UserService(
     fun getUsers(): List<User> = userReposiroty.findAll()
     override fun loadUserByUsername(username: String?): UserDetails {
         return userReposiroty.findByEmailIgnoreCase(username ?: "").orElseThrow()
+    }
+
+    fun getLoggedInUser(): User {
+        val email = SecurityContextHolder.getContext().authentication.name
+
+        return userReposiroty.findByEmailIgnoreCase(email).orElseThrow()
     }
 
 }
